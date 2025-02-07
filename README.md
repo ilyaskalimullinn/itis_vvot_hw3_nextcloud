@@ -15,3 +15,6 @@ bash run_ansible.sh
 ```
 
 Далее переходим по хосту, который выдался на 4 шаге
+
+## Скрины моей работы
+![image](https://github.com/user-attachments/assets/f380c845-092a-449e-9143-02e60fecb4e9)
