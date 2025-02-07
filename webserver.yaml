@@ -10,4 +10,42 @@
       ansible.builtin.apt:
         update_cache: true
         upgrade: yes
-
+    - name: Install packages for Nextcloud
+      ansible.builtin.apt:
+        pkg:
+          - acl
+          - unzip
+          - postgresql-all
+          - python3-psycopg2
+          - apache2
+          - libapache2-mod-php
+          - php-curl
+          - php-gd
+          - php-json
+          - php-mbstring
+          - php-xml
+          - php-zip
+          - php-pgsql
+        state: present
+    - name: Download and unpack Nextcloud
+      ansible.builtin.unarchive:
+        dest: "/var/www/html"
+        src: "https://download.nextcloud.com/server/releases/latest.zip"
+        remote_src: true
+        owner: "www-data"
+        group: "www-data"
+        creates: "/var/www/html/nextcloud"
+    - name: Postgresql User
+      become: true
+      become_user: postgres
+      become_method: ansible.builtin.sudo
+      community.postgresql.postgresql_user:
+        name: "{{POSTGRES_USER}}"
+        password: "{{POSTGRES_USER_PASSWORD}}"
+    - name: Postgresql DB
+      become: true
+      become_user: postgres
+      become_method: ansible.builtin.sudo
+      community.postgresql.postgresql_db:
+        name: "{{POSTGRES_DB}}"
+        owner: "{{POSTGRES_USER}}"

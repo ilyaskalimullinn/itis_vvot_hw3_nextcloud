@@ -211,4 +211,5 @@ terraform.rc
 
 # End of https://www.toptal.com/developers/gitignore/api/python,terraform
 
-hosts.template
+hosts
+ansible.vars.yaml
