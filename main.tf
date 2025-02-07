@@ -81,3 +81,9 @@ resource "yandex_compute_instance" "server" {
 output "web-server-ip" {
   value = yandex_compute_instance.server.network_interface[0].nat_ip_address
 }
+
+// Save webserver ip as hosts configuration for Ansible
+resource "local_file" "template" {
+  filename = "hosts"
+  content  = replace(file("hosts.template"), "{HOST}", yandex_compute_instance.server.network_interface[0].nat_ip_address)
+}

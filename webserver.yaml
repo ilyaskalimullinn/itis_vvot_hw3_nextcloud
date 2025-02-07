@@ -1,0 +1,13 @@
+---
+- name: Nextcloud
+  hosts: server
+
+  tasks:
+    - name: Timezone settings
+      community.general.timezone:
+        name: Europe/Moscow
+    - name: Upgrade Software
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: yes
+
